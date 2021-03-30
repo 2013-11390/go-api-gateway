@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package v1;
+
+option go_package = "github.com/2013-11390/go-api-gateway/gen/v1";
+
+service User {
+  rpc SignUpUser(SignUpUserRequest) returns (SignUpUserResponse);
+  rpc SignInUser(SignInUserRequest) returns (SignInUserResponse);
+  rpc AuthenticateUser(AuthenticateUserRequest) returns (AuthenticateUserResponse);
+}
+
+message SignUpUserRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message SignUpUserResponse {
+  string jwt_token = 2;
+}
+
+message SignInUserRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message SignInUserResponse {
+  string jwt_token = 2;
+}
+
+message AuthenticateUserRequest {
+  string jwt_token = 1;
+}
+
+message AuthenticateUserResponse {
+  enum UserRole {
+    ADMIN = 0;
+    UESR = 1;
+  }
+
+  UserRole user_role = 1;
+  int64 user_id = 2;
+}
